@@ -8,6 +8,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 
 
 db = SQLAlchemy(app)
+ with app.app_context():
+        db.create_all()
 
 class Blogpost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -66,6 +68,4 @@ def deletepost():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
